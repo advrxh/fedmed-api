@@ -15,7 +15,7 @@ async def create(user: UserIn):
     return {"id": str(_user.id)}
 
 
-@router.get("/uid/{email}")
+@router.get("/{email}")
 async def get_user(email: EmailStr):
     _user = await User.find_one(User.email == email)
 
@@ -24,7 +24,7 @@ async def get_user(email: EmailStr):
 
     return UserIn(**_user.dict())
 
-@router.get("/{email}")
+@router.get("/uid/{email}")
 async def get_user_id_by_email(email: EmailStr):
     _user = await User.find_one(User.email == email)
 
