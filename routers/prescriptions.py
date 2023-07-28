@@ -4,6 +4,7 @@ from models import PrescriptionIn, Prescription
 from beanie import PydanticObjectId
 
 from bson.errors import InvalidId
+from typing import List
 
 from config import CONFIG
 from qr import get_qr_b64
@@ -30,7 +31,20 @@ async def get(prescription_id: str):
     return PrescriptionIn(**_prescription.dict()) if _prescription is not None else {}
 
 
-@router.get("/qr/{id}")
-async def get_qr(id: str):
-    # set a useful url
-    return get_qr_b64(CONFIG.host + "/prescriptions/" + id)
+@router.get("/all/{user_id}")
+async def get(user_id: str):
+    _prescriptions: List[Prescription] = await Prescription.find_many(
+        Prescription.user_id == user_id
+    ).to_list()
+
+    _ret_prescs: List[PrescriptionIn] = []
+
+    for prescription in _prescriptions:
+        _ret_prescs.append(
+            {
+                "id": str(prescription.id),
+                "prescription": PrescriptionIn(**prescription.dict()).dict(),
+            }
+        )
+
+    return _ret_prescs

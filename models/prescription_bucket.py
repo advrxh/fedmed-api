@@ -1,11 +1,16 @@
 from datetime import datetime
-from typing import Optional, List, Any
+from typing import List
 from enum import Enum
-from datetime import date, datetime
+from datetime import datetime
+from uuid import uuid4
 
 
-from beanie import Document, PydanticObjectId
+from beanie import Document
 from pydantic import BaseModel, Field
+
+
+def get_uuid():
+    return str(uuid4())
 
 
 class MedicationType(Enum):
@@ -28,6 +33,7 @@ class Duration(BaseModel):
 
 
 class Medication(BaseModel):
+    id: str = Field(default_factory=get_uuid)
     name: str
     type: MedicationType
     course_timings: List[CourseTiming] = []
@@ -35,6 +41,7 @@ class Medication(BaseModel):
 
 
 class PrescriptionIn(BaseModel):
+    user_id: str
     medications: List[Medication]
 
 

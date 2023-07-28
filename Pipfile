@@ -8,6 +8,10 @@ fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
 beanie = "*"
 qrcode = {extras = ["pil"], version = "*"}
+fastapi-utils = "*"
+pydantic = {extras = ["email"], version = "*"}
+pytz = "*"
+aioredis = "*"
 
 [scripts]
 debug = "python -m uvicorn app:app --reload"
