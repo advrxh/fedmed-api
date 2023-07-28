@@ -12,6 +12,7 @@ fastapi-utils = "*"
 pydantic = {extras = ["email"], version = "*"}
 pytz = "*"
 aioredis = "*"
+gunicorn = "*"
 
 [scripts]
 debug = "python -m uvicorn app:app --reload"
