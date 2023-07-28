@@ -7,10 +7,12 @@ from models.prescription_bucket import Medication
 from util import get_redis, json_serial
 
 from datetime import datetime
+import time
 from pytz import timezone, utc
 
 from util import get_redis
 import json
+
 
 router = APIRouter()
 redis = get_redis()
@@ -69,7 +71,7 @@ async def schedule(user_id: str):
     for medication in _prescription.medications:
         _start = medication.duration.start_date.replace(tzinfo=utc)
         _end = medication.duration.end_date.replace(tzinfo=utc)
-        if _start <= localtime <= _end:
+        if _start.date() <= localtime.date() <= _end.date():
             course_list = create_schedule(medication, _schedule)
             _schedule.schedules.extend(course_list)
 
