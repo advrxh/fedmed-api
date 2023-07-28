@@ -8,6 +8,7 @@ class MedSchedule(BaseModel):
     id: str
     timestamp: datetime
     dose: int
+    before_food: bool
 
 
 class DaySchedule(BaseModel):
