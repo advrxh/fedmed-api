@@ -31,6 +31,7 @@ def create_schedule(medication: Medication, schedule: DaySchedule):
                     id=f"tablet:{schedule.tc}",
                     timestamp=course.timestamp,
                     dose=course.dose,
+                    before_food=course.before_food
                 )
             )
 
@@ -42,7 +43,8 @@ def create_schedule(medication: Medication, schedule: DaySchedule):
                     name=medication.name,
                     id=f"drop:{schedule.dc}",
                     timestamp=course.timestamp,
-                    dose=1,
+                    dose=course.dose,
+                    before_food=course.before_food
                 )
             )
 
