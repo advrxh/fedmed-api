@@ -24,6 +24,15 @@ async def get_user(email: EmailStr):
 
     return UserIn(**_user.dict())
 
+@router.get("/{email}")
+async def get_user_id_by_email(email: EmailStr):
+    _user = await User.find_one(User.email == email)
+
+    if _user is None:
+        return "Invalid email, user does not exist."
+
+    return {"id": str(_user.id)}
+
 
 @router.get("/qr/{id}")
 async def get_user_qr(id: str):
