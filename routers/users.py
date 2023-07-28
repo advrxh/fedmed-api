@@ -15,7 +15,7 @@ async def create(user: UserIn):
     return {"id": str(_user.id)}
 
 
-@router.get("/{email}")
+@router.get("/uid/{email}")
 async def get_user(email: EmailStr):
     _user = await User.find_one(User.email == email)
 
